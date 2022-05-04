@@ -1,0 +1,13 @@
+grumphp:
+    tasks:
+        phpcsfixer:
+            config: .php-cs-fixer.php
+        eslint:
+            bin: node_modules/.bin/eslint
+            triggered_by: [js, jsx, ts, tsx, vue]
+            whitelist_patterns:
+                - /^resources\/js\/(.*)/
+        pest:
+    fixer:
+        enabled: true
+        fix_by_default: false
