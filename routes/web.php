@@ -1,6 +1,7 @@
 <?php
 
 use App\Actions\StoreInventory;
+use App\Http\Controllers\InventoryMovementController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,3 +31,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::post('/inventory', StoreInventory::class)->name('inventory.store');
+
+Route::resource('inventory-movements', InventoryMovementController::class);
