@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Enums\InventoryMovementType;
 use App\Models\InventoryMovement;
+use DateTime;
 use Illuminate\Validation\Rules\Enum;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -17,6 +18,7 @@ class InventoryMovementImport implements ToModel, WithHeadingRow, WithValidation
     public function model(array $row): InventoryMovement
     {
         return new InventoryMovement([
+            'transacted_at' => DateTime::createFromFormat('d/m/Y', $row['date'])->format('Y-m-d'),
             'type' => InventoryMovementType::from($row['type'])->initial(),
             'quantity' => $row['quantity'],
             'price' => $row['unit_price'],

@@ -32,12 +32,14 @@ class StoreInventoryMovementsTest extends TestCase
         $this->assertDatabaseCount('inventory_movements', 2);
 
         $this->assertDatabaseHas('inventory_movements', [
+            'transacted_at' => '2020-12-21',
             'type' => 'p',
             'quantity' => 10,
             'price' => 5,
         ]);
 
         $this->assertDatabaseHas('inventory_movements', [
+            'transacted_at' => '2020-12-22',
             'type' => 'a',
             'quantity' => 10,
             'price' => null,
