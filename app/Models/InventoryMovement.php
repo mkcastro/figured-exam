@@ -10,6 +10,7 @@ class InventoryMovement extends Model
     use HasFactory;
 
     protected $fillable = [
+        'transacted_at',
         'type',
         'quantity',
         'price',
