@@ -1,5 +1,5 @@
 <template>
-  <app-layout title="Profile">
+  <app-layout title="Upload Inventory Profile">
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         Upload Inventory Movements
