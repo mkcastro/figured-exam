@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
@@ -16,6 +17,7 @@ class StoreInventoryTest extends TestCase
     public function it_can_upload_csv()
     {
         // given
+        $user = User::factory()->create();
         $data = [
             'inventory' => UploadedFile::fake()->createWithContent(
                 'inventory.csv',
@@ -24,7 +26,7 @@ class StoreInventoryTest extends TestCase
         ];
 
         // when
-        $response = $this->postJson(route('inventory.store'), $data);
+        $response = $this->actingAs($user)->postJson(route('inventory.store'), $data);
 
         // then/
         $response

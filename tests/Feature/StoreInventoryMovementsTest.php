@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Symfony\Component\HttpFoundation\File\File;
@@ -17,12 +18,13 @@ class StoreInventoryMovementsTest extends TestCase
     public function it_can_store_inventory_movements()
     {
         // given
+        $user = User::factory()->create();
         $formData = [
             'inventory_movements_file' => $this->inventoryMovementsFile(),
         ];
 
         // when
-        $response = $this->postJson(route('inventory-movements.store'), $formData);
+        $response = $this->actingAs($user)->postJson(route('inventory-movements.store'), $formData);
 
         // then
         $response->assertSuccessful()->json([
