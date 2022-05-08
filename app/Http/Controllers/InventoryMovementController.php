@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\LessThanZeroQuantityException;
 use App\Http\Requests\StoreInventoryMovementRequest;
 use App\Http\Requests\UpdateInventoryMovementRequest;
 use App\Imports\InventoryMovementImport;
 use App\Models\InventoryMovement;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class InventoryMovementController extends Controller
@@ -42,7 +44,20 @@ class InventoryMovementController extends Controller
         $file = $request->file('inventory_movements_file');
 
         $excel = new InventoryMovementImport;
-        $excel->import($file);
+
+        try {
+            DB::transaction(function () use ($excel, $file) {
+                $excel->import($file);
+            });
+        } catch (LessThanZeroQuantityException $e) {
+            return response()->json([
+                'errors' => [
+                    'inventory_movements_file' => [
+                        'The quantity results to less than 0.',
+                    ],
+                ],
+            ], 422);
+        }
 
         return response()->json([
             'message' => 'Successfully imported inventory movements.',
