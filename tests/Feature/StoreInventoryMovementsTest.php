@@ -12,6 +12,9 @@ class StoreInventoryMovementsTest extends TestCase
 {
     use RefreshDatabase;
 
+    // * added to seed default product
+    protected $seed = true;
+
     /**
      * @test
      */
