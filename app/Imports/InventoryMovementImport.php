@@ -18,6 +18,8 @@ class InventoryMovementImport implements ToModel, WithHeadingRow, WithValidation
     public function model(array $row): InventoryMovement
     {
         return new InventoryMovement([
+            // ! explicitly set product id to 1 since incomming data has no product id
+            'product_id' => 1,
             'transacted_at' => $row['date'],
             'type' => InventoryMovementType::from($row['type'])->initial(),
             'quantity' => abs($row['quantity']),
