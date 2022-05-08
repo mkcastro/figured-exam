@@ -8,8 +8,7 @@
 
     <div>
       <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-        <!-- TODO: remove user from prop -->
-        <upload-inventory-movement-form :user="$page.props.user" />
+        <upload-inventory-movement-form />
       </div>
     </div>
   </app-layout>
