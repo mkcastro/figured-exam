@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateInventoryMovementRequest;
 use App\Imports\InventoryMovementImport;
 use App\Models\InventoryMovement;
 use Illuminate\Http\JsonResponse;
+use Inertia\Inertia;
 
 class InventoryMovementController extends Controller
 {
@@ -27,7 +28,7 @@ class InventoryMovementController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('InventoryMovement/Create');
     }
 
     /**

@@ -20,7 +20,7 @@ class InventoryMovementImport implements ToModel, WithHeadingRow, WithValidation
         return new InventoryMovement([
             'transacted_at' => DateTime::createFromFormat('d/m/Y', $row['date'])->format('Y-m-d'),
             'type' => InventoryMovementType::from($row['type'])->initial(),
-            'quantity' => $row['quantity'],
+            'quantity' => abs($row['quantity']),
             'price' => $row['unit_price'],
         ]);
     }
@@ -41,7 +41,6 @@ class InventoryMovementImport implements ToModel, WithHeadingRow, WithValidation
             'quantity' => [
                 'required',
                 'integer',
-                'gt:0',
             ],
             'unit_price' => [
                 'nullable',

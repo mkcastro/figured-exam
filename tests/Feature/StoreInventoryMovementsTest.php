@@ -50,7 +50,7 @@ class StoreInventoryMovementsTest extends TestCase
     {
         $header = 'Date,Type,Quantity,Unit Price';
         $purchaseRow = '21/12/2020,Purchase,10,5,';
-        $applicationRow = '22/12/2020,Application,10,,';
+        $applicationRow = '22/12/2020,Application,-10,,';
 
         $content = implode("\n", [$header, $purchaseRow, $applicationRow]);
 
