@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('inventory_movements', function (Blueprint $table) {
             $table->id();
             $table->date('transacted_at');
-            $table->string('type');
+            $table->char('type', 1);
             $table->unsignedInteger('quantity');
             $table->unsignedInteger('price')->nullable();
             $table->timestamps();

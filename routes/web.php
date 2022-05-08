@@ -26,10 +26,12 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
 
-Route::post('/inventory', StoreInventory::class)->name('inventory.store');
+    Route::post('/inventory', StoreInventory::class)->name('inventory.store');
 
-Route::resource('inventory-movements', InventoryMovementController::class);
+    Route::resource('inventory-movements', InventoryMovementController::class);
+});
