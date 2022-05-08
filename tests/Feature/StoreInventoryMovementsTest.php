@@ -49,6 +49,11 @@ class StoreInventoryMovementsTest extends TestCase
             'quantity' => 10,
             'price' => null,
         ]);
+
+        $this->assertDatabaseHas('products', [
+            'id' => 1,
+            'quantity' => 0,
+        ]);
     }
 
     private function inventoryMovementsFile(): File
