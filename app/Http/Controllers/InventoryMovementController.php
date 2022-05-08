@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateInventoryMovementRequest;
 use App\Imports\InventoryMovementImport;
 use App\Models\InventoryMovement;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class InventoryMovementController extends Controller
@@ -46,9 +45,7 @@ class InventoryMovementController extends Controller
         $excel = new InventoryMovementImport;
 
         try {
-            DB::transaction(function () use ($excel, $file) {
-                $excel->import($file);
-            });
+            $excel->import($file);
         } catch (LessThanZeroQuantityException $e) {
             return response()->json([
                 'errors' => [
