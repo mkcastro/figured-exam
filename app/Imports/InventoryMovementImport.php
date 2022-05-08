@@ -18,7 +18,7 @@ class InventoryMovementImport implements ToModel, WithHeadingRow, WithValidation
     public function model(array $row): InventoryMovement
     {
         return new InventoryMovement([
-            'transacted_at' => DateTime::createFromFormat('d/m/Y', $row['date'])->format('Y-m-d'),
+            'transacted_at' => $row['date'],
             'type' => InventoryMovementType::from($row['type'])->initial(),
             'quantity' => abs($row['quantity']),
             'price' => $row['unit_price'],
@@ -30,13 +30,13 @@ class InventoryMovementImport implements ToModel, WithHeadingRow, WithValidation
         return [
             'date' => [
                 'required',
-                'date_format:d/m/Y',
+                'date',
+                'unique:inventory_movements,transacted_at',
             ],
             'type' => [
                 'required',
                 'string',
                 new Enum(InventoryMovementType::class),
-
             ],
             'quantity' => [
                 'required',
@@ -48,5 +48,12 @@ class InventoryMovementImport implements ToModel, WithHeadingRow, WithValidation
                 'gt:0',
             ],
         ];
+    }
+
+    public function prepareForValidation($data, $index): array
+    {
+        $data['date'] = DateTime::createFromFormat('d/m/Y', $data['date'])->format('Y-m-d');
+
+        return $data;
     }
 }
